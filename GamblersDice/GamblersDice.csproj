@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <PackageId>GamblersDice</PackageId>
+    <Title>Gambler's Dice</Title>
+    <Description>This set of dice follows the Gambler's fallacy. A C# port of https://github.com/xori/gamblers-dice</Description>
+    <Version>1.0.0</Version>
+    <Authors>Ryan Tauriainen</Authors>
+    <PackageLicenseUrl>https://github.com/MrTarantula/gamblers-dice/LICENSE</PackageLicenseUrl>
+    <RepositoryUrl>https://github.com/MrTarantula/gamblers-dice</RepositoryUrl>
+    <PackageTags>dice;random;gambler;fallacy;terrible-idea;monte;carlo</PackageTags> 
+  </PropertyGroup>
+
+</Project>
