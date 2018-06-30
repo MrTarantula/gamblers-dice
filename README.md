@@ -15,7 +15,7 @@ var die = new GamblersDie(20); // d20
 // OR
 var die = new GamblersDie(1, 1, 1, 4, 1, 1, 1); //d7, with 4 heavily weighted
 // OR
-var die = new GablersDie(new int[] {1, 1, 4, 1, 1, 1}); // Arrays work for weights as well
+var die = new GamblersDie(new int[] {1, 1, 4, 1, 1, 1}); // Arrays work for weights as well
 
 int result = die.Roll(); // the weighted die will most likely return 4
 ```
