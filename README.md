@@ -4,21 +4,22 @@ A C# (.Net Standard 2.0) port of [xori/gamblers-dice](https://github.com/xori/ga
 
 ## How to Use
 
+### Install
 ```
 $ dotnet add package GamblersDice
+// OR
+$ Install-Package GamblersDice
 ```
+
+### Use
 
 ```C#
-var die = new GamblersDie(); // d6
-// OR
-var die = new GamblersDie(20); // d20
-// OR
-var die = new GamblersDie(1, 1, 1, 4, 1, 1, 1); //d7, with 4 heavily weighted
-// OR
-var die = new GamblersDie(new int[] {1, 1, 4, 1, 1, 1}); // Arrays work for weights as well
+var die = new GamblersDie(); // Creates a new six-sided die
 
-int result = die.Roll(); // the weighted die will most likely return 4
+int result = die.Roll();
 ```
+
+See [API](#API) for more examples.
 
 ## What is happening?
 
@@ -59,3 +60,47 @@ After four rolls, we've yet to see a 4, it is
 indeed there is now a 45% chance of rolling a 4. If you were going to do
 something rash (like
 bet on a 4) now would be the time.
+
+## API
+
+### `GamblersDie()`
+
+Creates a new die with the default of six sides. Each side is equally weighted. Example: `var die = new GamblersDie();`
+
+### `GamblersDie(int)`
+
+Creates a new die with the number of sides specified. Each side is equally weighted. Example: `var die = new GamblersDie(8);`
+
+### `GamblersDie(int, int, int, int, int, int)`
+
+Creates a new die with the number of sides determined by the number of parameters. Each parameter is the weight for its side. Example: `var die = new GamblersDie(1, 1, 1, 1, 3, 1, 1);`
+
+### `GamblersDie(new int[] {int, int, int, int, int, int})`
+
+Same as above, but using an array instead of individual parameters.
+
+## Fair Die
+
+A fair die is included as well. It works similar to `GamblersDie` but it is not weighted.
+
+### `FairDie()`
+
+Creates a new fair die with the default of six sides.
+
+### `FairDie(int)`
+
+Creates a new fair die with the number of sides specified.
+
+## Random
+
+If you don't want each die to create its own `System.Random` object, pass your own `System.Random` object as the first argument in the constructor. This works for all constructors:
+
+```C#
+var rnd = new Random();
+
+var die0 = new GamblersDie(rnd);
+
+var die1 = new GamblersDie(rnd, 1, 1, 1, 7, 1, 1, 1);
+
+var die2 = new FairDie(rnd, 20);
+```

@@ -4,8 +4,37 @@ using GamblersDice;
 
 namespace GamblersDice.Tests
 {
-    public class GamblersDiceTests
+    [Trait("Category", "Gamblers")]
+    public class GamblersDieTests
     {
+        [Fact]
+        [Trait("Category", "Constructors")]
+        public void ConstructDie()
+        {
+            Assert.IsType<GamblersDie>(new GamblersDie());
+        }
+
+        [Fact]
+        [Trait("Category", "Constructors")]
+        public void ConstructDie_Sides()
+        {
+            Assert.IsType<GamblersDie>(new GamblersDie(6));
+        }
+
+        [Fact]
+        [Trait("Category", "Constructors")]
+        public void ConstructDie_Weights()
+        {
+            Assert.IsType<GamblersDie>(new GamblersDie(1, 2, 3, 4, 5, 6));
+        }
+
+        [Fact]
+        [Trait("Category", "Constructors")]
+        public void ConstructDie_Weights_Array()
+        {
+            Assert.IsType<GamblersDie>(new GamblersDie(new int[] { 1, 2, 3, 4, 5, 6 }));
+        }
+
         [Theory]
         [InlineData(6)]
         [InlineData(20)]
@@ -48,7 +77,7 @@ namespace GamblersDice.Tests
             // 3 should be rolled 20% of the time
             // 4 should be rolled 10% of the time
 
-            decimal iters = 1_000_000M;
+            decimal iters = 10_000_000M;
             int[] result = new int[] { 0, 0, 0, 0 };
 
             for (int run = 0; run < iters; run++)
