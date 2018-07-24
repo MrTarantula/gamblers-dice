@@ -104,15 +104,3 @@ var die1 = new GamblersDie(rnd, 1, 1, 1, 7, 1, 1, 1);
 
 var die2 = new FairDie(rnd, 20);
 ```
-
-This can also be done with a reference to a `System.Random` object, but I'm currently not sure if there are any performance gains:
-
-```C#
-var rnd = new Random();
-
-var die0 = new GamblersDie(ref rnd);
-
-var die1 = new GamblersDie(ref rnd, 1, 1, 1, 7, 1, 1, 1);
-
-var die2 = new FairDie(ref rnd, 20);
-```

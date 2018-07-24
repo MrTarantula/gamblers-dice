@@ -23,14 +23,6 @@ namespace GamblersDice.Tests
         [Trait("Category", "Random")]
         public void ConstructFairDie_Sides_Random() => Assert.IsType<FairDie>(new FairDie(_rnd, 6));
 
-        [Fact]
-        [Trait("Category", "Reference")]
-        public void ConstructFairDie_Ref() => Assert.IsType<FairDie>(new FairDie(ref _rnd));
-
-        [Fact]
-        [Trait("Category", "Reference")]
-        public void ConstructFairDie_Sides_Ref() => Assert.IsType<FairDie>(new FairDie(ref _rnd, 6));
-
         [Theory]
         [InlineData(6)]
         [InlineData(20)]

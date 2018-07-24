@@ -16,21 +16,12 @@ namespace GamblersDice
 
         /// <summary>Initializes a new fair die with a default of six sides. Bring your own <c>Random</c> object.</summary>
         /// <param name="rnd"><c>Random</c> object to be used when rolling the die</param>
-        public FairDie(Random rnd) : this(ref rnd) { }
+        public FairDie(Random rnd) : this(rnd, 6) { }
 
         /// <summary>Initializes a new fair die with the specified number of sides. Bring your own <c>Random</c> object.</summary>
         /// <param name="rnd"><c>Random</c> object to be used when rolling the die.</param>
         /// <param name="sides">Number of sides on the die.</param>
-        public FairDie(Random rnd, int sides) : this(ref rnd, sides) { }
-
-        /// <summary>Initializes a new fair die with a default of six sides using reference to a <c>Random</c> object.</summary>
-        /// <param name="rnd">Reference to <c>Random</c> object to be used when rolling the die.</param>
-        public FairDie(ref Random rnd) : this(ref rnd, 6) { }
-
-        /// <summary>Initializes a new fair die with the specified number of sides using reference to a <c>Random</c> object.</summary>
-        /// <param name="rnd">Reference to <c>Random</c> object to be used when rolling the die.</param>
-        /// <param name="sides">Number of sides on the die.</param>
-        public FairDie(ref Random rnd, int sides)
+        public FairDie(Random rnd, int sides)
         {
             _rnd = rnd;
             _sides = sides;

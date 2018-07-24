@@ -22,26 +22,13 @@ namespace GamblersDice
 
         /// <summary>Initializes a new gambler's die with a default of six sides. Bring your own <c>Random</c> object.</summary>
         /// <param name="rnd"><c>Random</c> object to be used when rolling the die.</param>
-        public GamblersDie(Random rnd) : this(ref rnd) { }
+        public GamblersDie(Random rnd) : this(rnd, 6) { }
 
         /// <summary>Initializes a new gambler's die with the specified number of sides. Bring your own <c>Random</c> object.</summary>
         /// <param name="rnd"><c>Random</c> object to be used when rolling the die.</param>
         /// <param name="size">Size of the die.</param>
-        public GamblersDie(Random rnd, int size) : this(ref rnd, size) { }
-
-        /// <summary>Initializes a new gambler's die with known weights. Bring your own <c>Random</c> object.</summary>
-        /// <param name="rnd"><c>Random</c> object to be used when rolling the die.</param>
-        /// <param name="weights">Pre-calculated weights of the sides of the die.</param>
-        public GamblersDie(Random rnd, params int[] weights) : this(ref rnd, weights) { }
-
-        /// <summary>Initializes a new gambler's die with a default of six sides using reference to a <c>Random</c> object.</summary>
-        /// <param name="rnd">Reference to <c>Random</c> object to be used when rolling the die.</param>
-        public GamblersDie(ref Random rnd) : this(ref rnd, 6) { }
-
-        /// <summary>Initializes a new gambler's die with the specified number of sides using reference to a <c>Random</c> object.</summary>
-        /// <param name="rnd">Reference to <c>Random</c> object to be used when rolling the die.</param>
-        /// <param name="size">Size of the die.</param>
-        public GamblersDie(ref Random rnd, int size) {
+        public GamblersDie(Random rnd, int size)
+        {
             _rnd = rnd;
             Weight = new int[size];
 
@@ -51,10 +38,10 @@ namespace GamblersDice
             }
         }
 
-        /// <summary>Initializes a new gambler's die with known weights using reference to a <c>Random</c> object.</summary>
-        /// <param name="rnd">Reference to <c>Random</c> object to be used when rolling the die.</param>
+        /// <summary>Initializes a new gambler's die with known weights. Bring your own <c>Random</c> object.</summary>
+        /// <param name="rnd"><c>Random</c> object to be used when rolling the die.</param>
         /// <param name="weights">Pre-calculated weights of the sides of the die.</param>
-        public GamblersDie(ref Random rnd, params int[] weights) : this(ref rnd, weights.Length)
+        public GamblersDie(Random rnd, params int[] weights) : this(rnd, weights.Length)
         {
             for (int i = 0; i < Weight.Length; i++)
             {
