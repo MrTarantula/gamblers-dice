@@ -8,32 +8,16 @@ namespace GamblersDice.Tests
     public class GamblersDieTests
     {
         [Fact]
-        [Trait("Category", "Constructors")]
-        public void ConstructDie()
-        {
-            Assert.IsType<GamblersDie>(new GamblersDie());
-        }
+        public void ConstructDie() => Assert.IsType<GamblersDie>(new GamblersDie());
 
         [Fact]
-        [Trait("Category", "Constructors")]
-        public void ConstructDie_Sides()
-        {
-            Assert.IsType<GamblersDie>(new GamblersDie(6));
-        }
+        public void ConstructDie_Sides() => Assert.IsType<GamblersDie>(new GamblersDie(6));
 
         [Fact]
-        [Trait("Category", "Constructors")]
-        public void ConstructDie_Weights()
-        {
-            Assert.IsType<GamblersDie>(new GamblersDie(1, 2, 3, 4, 5, 6));
-        }
+        public void ConstructDie_Weights() => Assert.IsType<GamblersDie>(new GamblersDie(1, 2, 3, 4, 5, 6));
 
         [Fact]
-        [Trait("Category", "Constructors")]
-        public void ConstructDie_Weights_Array()
-        {
-            Assert.IsType<GamblersDie>(new GamblersDie(new int[] { 1, 2, 3, 4, 5, 6 }));
-        }
+        public void ConstructDie_Weights_Array() => Assert.IsType<GamblersDie>(new GamblersDie(new int[] { 1, 2, 3, 4, 5, 6 }));
 
         [Theory]
         [InlineData(6)]
@@ -49,11 +33,9 @@ namespace GamblersDice.Tests
                 result[die.Roll() - 1]++;
             }
 
-            decimal avg = iters / sides;
-
             for (int i = 0; i < sides; i++)
             {
-                decimal roll = (result[i] - avg) / iters;
+                decimal roll = (result[i] - iters / sides) / iters;
                 Assert.True(0.001M > roll, $"{roll} is outside of uniformity tolerance of 0.001");
             }
         }
@@ -61,12 +43,7 @@ namespace GamblersDice.Tests
         [Theory]
         [InlineData(new int[] { 0, 0, 1, 0, 0, 0 }, 3)]
         [InlineData(new int[] { 0, 0, 0, 0, 1, 0 }, 5)]
-        public void NonUniform(int[] weights, int expected)
-        {
-            var die = new GamblersDie(weights);
-
-            Assert.Equal(expected, die.Roll());
-        }
+        public void NonUniform(int[] weights, int expected) => Assert.Equal(expected, new GamblersDie(weights).Roll());
 
         [Fact]
         public void NonUniform_Inferred()

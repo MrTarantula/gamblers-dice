@@ -10,27 +10,40 @@ namespace GamblersDice
         public int[] Weight { get; private set; }
 
         /// <summary>Initializes a new gambler's die with a default of six sides.</summary>
-        public GamblersDie() : this(new Random(), 6) { }
+        public GamblersDie() : this(new Random()) { }
 
         /// <summary>Initializes a new gambler's die with the specified number of sides.</summary>
         /// <param name="size">Size of the die.</param>
         public GamblersDie(int size) : this(new Random(), size) { }
 
         /// <summary>Initializes a new gambler's die with known weights.</summary>
-        /// <param name="weights">Pre-calculated weights of the sides of the die</param>
+        /// <param name="weights">Pre-calculated weights of the sides of the die.</param>
         public GamblersDie(params int[] weights) : this(new Random(), weights) { }
 
         /// <summary>Initializes a new gambler's die with a default of six sides. Bring your own <c>Random</c> object.</summary>
-        /// <param name="rnd"><c>Random</c> object to be referenced when rolling the die</param>
-        public GamblersDie(Random rnd) : this(rnd, 6) { }
+        /// <param name="rnd"><c>Random</c> object to be used when rolling the die.</param>
+        public GamblersDie(Random rnd) : this(ref rnd) { }
 
         /// <summary>Initializes a new gambler's die with the specified number of sides. Bring your own <c>Random</c> object.</summary>
-        /// <param name="rnd"><c>Random</c> object to be referenced when rolling the die</param>
+        /// <param name="rnd"><c>Random</c> object to be used when rolling the die.</param>
         /// <param name="size">Size of the die.</param>
-        public GamblersDie(Random rnd, int size)
-        {
-            Weight = new int[size];
+        public GamblersDie(Random rnd, int size) : this(ref rnd, size) { }
+
+        /// <summary>Initializes a new gambler's die with known weights. Bring your own <c>Random</c> object.</summary>
+        /// <param name="rnd"><c>Random</c> object to be used when rolling the die.</param>
+        /// <param name="weights">Pre-calculated weights of the sides of the die.</param>
+        public GamblersDie(Random rnd, params int[] weights) : this(ref rnd, weights) { }
+
+        /// <summary>Initializes a new gambler's die with a default of six sides using reference to a <c>Random</c> object.</summary>
+        /// <param name="rnd">Reference to <c>Random</c> object to be used when rolling the die.</param>
+        public GamblersDie(ref Random rnd) : this(ref rnd, 6) { }
+
+        /// <summary>Initializes a new gambler's die with the specified number of sides using reference to a <c>Random</c> object.</summary>
+        /// <param name="rnd">Reference to <c>Random</c> object to be used when rolling the die.</param>
+        /// <param name="size">Size of the die.</param>
+        public GamblersDie(ref Random rnd, int size) {
             _rnd = rnd;
+            Weight = new int[size];
 
             for (int i = 0; i < Weight.Length; i++)
             {
@@ -38,10 +51,10 @@ namespace GamblersDice
             }
         }
 
-        /// <summary>Initializes a new gambler's die with known weights. Bring your own <c>Random</c> object.</summary>
-        /// <param name="rnd"><c>Random</c> object to be referenced when rolling the die</param>
-        /// <param name="weights">Pre-calculated weights of the sides of the die</param>
-        public GamblersDie(Random rnd, params int[] weights) : this(rnd, weights.Length)
+        /// <summary>Initializes a new gambler's die with known weights using reference to a <c>Random</c> object.</summary>
+        /// <param name="rnd">Reference to <c>Random</c> object to be used when rolling the die.</param>
+        /// <param name="weights">Pre-calculated weights of the sides of the die.</param>
+        public GamblersDie(ref Random rnd, params int[] weights) : this(ref rnd, weights.Length)
         {
             for (int i = 0; i < Weight.Length; i++)
             {
@@ -62,13 +75,10 @@ namespace GamblersDice
                 sum += w;
             }
 
-            // Get a random number between 0 and the sum
-            int rand = _rnd.Next(sum);
-
             // Find the target
-            while (rand >= 0)
+            for (int rand = _rnd.Next(sum); rand >= 0; target++)
             {
-                rand -= Weight[target++];
+                rand -= Weight[target];
             }
 
             // Update the weights

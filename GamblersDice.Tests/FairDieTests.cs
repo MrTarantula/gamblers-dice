@@ -10,33 +10,46 @@ namespace GamblersDice.Tests
         Random _rnd = new Random();
 
         [Fact]
-        [Trait("Category", "Constructors")]
-        public void ConstructFairDie()
-        {
-            Assert.IsType<FairDie>(new FairDie());
-        }
+        public void ConstructFairDie() => Assert.IsType<FairDie>(new FairDie());
 
         [Fact]
-        [Trait("Category", "Constructors")]
-        public void ConstructFairDie_Sides()
-        {
-            Assert.IsType<FairDie>(new FairDie(6));
-        }
+        public void ConstructFairDie_Sides() => Assert.IsType<FairDie>(new FairDie(6));
 
         [Fact]
-        [Trait("Category", "Constructors")]
         [Trait("Category", "Random")]
-        public void ConstructFairDie_Random()
-        {
-            Assert.IsType<FairDie>(new FairDie(_rnd));
-        }
+        public void ConstructFairDie_Random() => Assert.IsType<FairDie>(new FairDie(_rnd));
 
         [Fact]
-        [Trait("Category", "Constructors")]
         [Trait("Category", "Random")]
-        public void ConstructFairDie_Sides_Random()
+        public void ConstructFairDie_Sides_Random() => Assert.IsType<FairDie>(new FairDie(_rnd, 6));
+
+        [Fact]
+        [Trait("Category", "Reference")]
+        public void ConstructFairDie_Ref() => Assert.IsType<FairDie>(new FairDie(ref _rnd));
+
+        [Fact]
+        [Trait("Category", "Reference")]
+        public void ConstructFairDie_Sides_Ref() => Assert.IsType<FairDie>(new FairDie(ref _rnd, 6));
+
+        [Theory]
+        [InlineData(6)]
+        [InlineData(20)]
+        public void Uniform(int sides)
         {
-            Assert.IsType<FairDie>(new FairDie(_rnd, 6));
+            var die = new FairDie(sides);
+            int[] result = new int[sides];
+            decimal iters = 10_000_000M;
+
+            for (int i = 0; i < iters; i++)
+            {
+                result[die.Roll() - 1]++;
+            }
+
+            for (int i = 0; i < sides; i++)
+            {
+                decimal roll = (result[i] - iters / sides) / iters;
+                Assert.True(0.001M > roll, $"{roll} is outside of uniformity tolerance of 0.001");
+            }
         }
     }
 }

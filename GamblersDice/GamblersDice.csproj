@@ -8,7 +8,7 @@
     <PackageId>GamblersDice</PackageId>
     <Title>Gambler's Dice</Title>
     <Description>This set of dice follows the Gambler's fallacy. A C# port of https://github.com/xori/gamblers-dice</Description>
-    <Version>1.1.0</Version>
+    <Version>1.2.0</Version>
     <Authors>Ryan Tauriainen</Authors>
     <PackageLicenseUrl>https://github.com/MrTarantula/gamblers-dice/blob/master/LICENSE</PackageLicenseUrl>
     <RepositoryUrl>https://github.com/MrTarantula/gamblers-dice</RepositoryUrl>
